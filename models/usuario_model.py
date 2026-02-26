@@ -10,7 +10,7 @@ class UsuarioModel(settings.DB_BASE):
     id = Column(Integer, primary_key=True, autoincrement=True)
     nome = Column(String(255), nullable=True)
     sobrenome = Column(String(255), nullable=True)
-    email = Column(String(255), nullable=False)
+    email = Column(String(255), nullable=False, unique=True)
     senha = Column(String(255), nullable=False)
     eh_admin = Column(Boolean, default=False)
     artigos = relationship(

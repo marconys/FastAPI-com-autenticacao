@@ -6,6 +6,7 @@ from fastapi.responses import JSONResponse
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+from sqlalchemy.exc import IntegrityError
 
 from models.usuario_model import UsuarioModel
 from schemas.usuario_schema import (
@@ -47,6 +48,12 @@ async def post_signup(
         await db.commit()
         await db.refresh(novo_usuario)
         return novo_usuario
+        
+    except IntegrityError:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Email ja cadastrado.",
+        )
     except Exception as e:
         await db.rollback()
         raise HTTPException(
