@@ -67,7 +67,9 @@ async def get_artigo(artigo_id: int, db: AsyncSession = Depends(get_session)):
 
 
 # PUT Update Artigo
-@router.put("/{artigo_id}", response_model=ArtigoSchema, status_code=status.HTTP_202_ACCEPTED)
+@router.put(
+    "/{artigo_id}", response_model=ArtigoSchema, status_code=status.HTTP_202_ACCEPTED
+)
 async def put_artigo(
     artigo_id: int,
     artigo: ArtigoSchema,
@@ -94,7 +96,7 @@ async def put_artigo(
             artigo_update.descricao = artigo.descricao
         if artigo.url_fonte:
             artigo_update.url_fonte = artigo.url_fonte
-            
+
         await db.commit()
         await db.refresh(artigo_update)
 

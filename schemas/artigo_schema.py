@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel, HttpUrl, ConfigDict
 
 
 class ArtigoSchema(BaseModel):
@@ -10,5 +10,4 @@ class ArtigoSchema(BaseModel):
     url_fonte: HttpUrl
     usuario_id: Optional[int]
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
