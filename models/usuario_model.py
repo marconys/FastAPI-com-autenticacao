@@ -1,6 +1,5 @@
 from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.orm import relationship
-
 from core.configs import settings
 
 
@@ -13,10 +12,10 @@ class UsuarioModel(settings.DB_BASE):
     email = Column(String(255), nullable=False, unique=True)
     senha = Column(String(255), nullable=False)
     eh_admin = Column(Boolean, default=False)
+
     artigos = relationship(
         "ArtigoModel",
-        cascade="all, delete-orphan",
         back_populates="criador",
-        uselist=True,
+        cascade="all, delete-orphan",
         lazy="joined",
     )

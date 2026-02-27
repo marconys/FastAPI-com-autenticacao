@@ -48,12 +48,6 @@ async def post_signup(
         await db.commit()
         await db.refresh(novo_usuario)
         return novo_usuario
-        
-    except IntegrityError:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="Email ja cadastrado.",
-        )
     except Exception as e:
         await db.rollback()
         raise HTTPException(
@@ -118,10 +112,9 @@ async def put_usuario(
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND, detail="Usuario não encontrado."
             )
-        if (
-            usuario_update.usuario_id != usuario_logado.id
-            and not usuario_logado.eh_admin
-        ):
+
+        if  usuario_update.id != usuario_logado.id and not usuario_logado.eh_admin:
+
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Sem permissão para atualizar este usuario.",
@@ -165,7 +158,7 @@ async def delete_usuario(
                 status_code=status.HTTP_404_NOT_FOUND, detail="Usuario não encontrado."
             )
 
-        if usuario_logado.eh_admin is False:
+        if not usuario_logado.eh_admin:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Sem permissão para deletar este usuario.",
@@ -198,10 +191,8 @@ async def login(
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    return JSONResponse(
-        content={
-            "access_token": criar_token_acesso(sub=usuario.id),
+    return {
+            "access_token": criar_token_acesso(sub=usuario.email),
             "token_type": "bearer",
-        },
-        status_code=status.HTTP_200_OK,
-    )
+            "status_code": status.HTTP_200_OK,
+        }

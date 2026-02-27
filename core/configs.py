@@ -16,13 +16,13 @@ class Settings(BaseModel):
     HOST: str = "localhost"
     PORT: int = 8000
 
-    JWT_SECRET_KEY: str = ("KQnqsJRoAylhv4MgfrznxRwJgOMZujFf_gkT7bynz9o",)
+    JWT_SECRET_KEY: str = "KQnqsJRoAylhv4MgfrznxRwJgOMZujFf_gkT7bynz9o"
     """   
      
     import secrets
     token = secrets.token_urlsafe(32)
     """
-    ALGORITHM: str = ("HS256",)
+    ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 dias,
 
     model_config = {
