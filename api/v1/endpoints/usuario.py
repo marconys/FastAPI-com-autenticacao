@@ -60,7 +60,7 @@ async def post_signup(
 @router.get("/", response_model=List[UsuarioSchemaBase])
 async def get_usuarios(db: AsyncSession = Depends(get_session)):
     try:
-        query = select(UsuarioModel)
+        query = select(UsuarioModel).order_by(UsuarioModel.id.asc())
         result = await db.execute(query)
         usuarios: List[UsuarioSchemaBase] = result.scalars().unique().all()
         return usuarios

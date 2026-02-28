@@ -15,3 +15,9 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run("main:app", host=settings.HOST, port=settings.PORT, reload=True)
+
+
+    """
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNzcyODkwOTcwLCJpYXQiOjE3NzIyODYxNzAsInN1YiI6Im1tb3VyYUBnbWFpbC5jb20ifQ.Wg-bxKtLU-lTgkSyuPP1eZSaF6EhqNgLl193ZTaUPgI",
+    "token_type": "bearer"
+    """
